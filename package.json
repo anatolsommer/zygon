@@ -1,0 +1,23 @@
+{
+  "name": "zygon",
+  "description": "Simple terminal table renderer",
+  "version": "0.0.1-beta",
+  "license": "MIT",
+  "author": "Anatol Sommer <anatol@anatol.at>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anatolsommer/zygon.git"
+  },
+  "keywords": [
+    "terminal",
+    "cli",
+    "table",
+    "format"
+  ],
+  "dependencies": {
+    "colors": "^1.1.2"
+  },
+  "devDependencies": {
+    "mocha": "~2.1.0"
+  }
+}
