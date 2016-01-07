@@ -7,7 +7,7 @@
 
 #### columnsDefinition
 * name (string), **required**
-* size (number), default = options.size
+* size (number or Infinity), default = options.size
 * align (string), 'left', 'right' or 'center', default='left'
 * color (string or function), ```function(val, row) { return color; }```
 * format (function), ```function(val, row) { return newVal; }```

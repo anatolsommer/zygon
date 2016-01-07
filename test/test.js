@@ -26,6 +26,14 @@ describe('Cell padding', function() {
     assert.equal(zygon.cellPadding('X', 5, 'center'), '  X  ');
   });
 
+  it('should return value if size===Infinity', function() {
+    assert.equal(zygon.cellPadding('X', Infinity), 'X');
+    assert.equal(
+      zygon.cellPadding('123456789012345678901234567890', Infinity),
+      '123456789012345678901234567890'
+    );
+  });
+
 });
 
 describe('Table renderer', function() {
@@ -79,6 +87,24 @@ describe('Table renderer', function() {
     , getOutput(function() {
       var tbl=zygon([{name:'Test', size:5}]);
       tbl.printHead();
+    }));
+  });
+
+  it('should render table with size:Infinity', function() {
+    assert.equal('\n'+
+      '  Person    Text  \n'+
+      '  Doctor    You want weapons? We’re in a library! Books! The best weapons in the world!  \n'+
+      '  Oswin     Run... run you clever boy... and remember  \n'+
+      '  Doctor    Don\'t turn your back. Don\'t look away. And don\'t blink.  \n\n'
+    , getOutput(function() {
+      zygon([
+        {name:'Person', size:8},
+        {name:'Text', size:Infinity}
+      ], [
+        ['Doctor', 'You want weapons? We’re in a library! Books! The best weapons in the world!'],
+        ['Oswin', 'Run... run you clever boy... and remember'],
+        ['Doctor', 'Don\'t turn your back. Don\'t look away. And don\'t blink.']
+      ], {notBold:true});
     }));
   });
 
