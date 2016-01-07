@@ -81,6 +81,22 @@ describe('Table renderer', function() {
     }));
   });
 
+  it('should render array of objects', function() {
+    assert.equal('\n'+
+      '  Test1    Test2  \n'+
+      '  1234       567  \n'+
+      '  89           0  \n\n'
+    , getOutput(function() {
+      zygon([
+        {name:'Test1', key:'a', size:7},
+        {name:'Test2', key:'b', size:5, align:'right'},
+      ], [
+        {a:1234, b:567, c:'dummy'},
+        {b:0, a:89}
+      ], {notBold:true});
+    }));
+  });
+
   it('should render bold heading', function() {
     assert.equal(
       '\n  Test   '.bold+'\n'
@@ -107,6 +123,8 @@ describe('Table renderer', function() {
       ], {notBold:true});
     }));
   });
+
+
 
   it('should render table using format and color functions', function() {
     assert.equal(
@@ -185,7 +203,12 @@ function getOutput(cb) {
   process.stdout.write=function(data) {
     buf+=data;
   };
-  cb();
-  process.stdout.write=write;
+  try {
+    cb();
+    process.stdout.write=write;
+  } catch(err) {
+    process.stdout.write=write;
+    throw err;
+  }
   return buf;
 }
