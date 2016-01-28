@@ -1,5 +1,5 @@
 # Zygon
-## Simple terminal table renderer
+Simple terminal table renderer
 
 
 ### Usage:
