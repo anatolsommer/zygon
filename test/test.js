@@ -47,6 +47,15 @@ describe('Table renderer', function() {
     }));
   });
 
+  it('should skip empty rows', function() {
+    assert.equal('\n'+
+      '  Test  \n'+
+      '  1234  \n\n'
+    , getOutput(function() {
+      zygon([{name:'Test', size:4}], [null,[1234],undefined,''], {notBold:true});
+    }));
+  });
+
   it('should render basic 1x1 table with printRow', function() {
     assert.equal(
       '  1234  \n'
@@ -62,6 +71,24 @@ describe('Table renderer', function() {
     , getOutput(function() {
       var tbl=zygon([{name:'Test', size:4}], {notBold:true});
       tbl.printRows([[1234]]);
+    }));
+  });
+
+  it('should use default colSize 20', function() {
+    assert.equal(
+      '\n  Test                  \n'+
+      '  1234                  \n\n'
+    , getOutput(function() {
+      var tbl=zygon([{name:'Test'}], [[1234]], {notBold:true});
+    }));
+  });
+
+  it('should use default colSize from options', function() {
+    assert.equal(
+      '\n  Test             \n'+
+      '  1234             \n\n'
+    , getOutput(function() {
+      var tbl=zygon([{name:'Test'}], [[1234]], {notBold:true, colSize:15});
     }));
   });
 
@@ -97,6 +124,12 @@ describe('Table renderer', function() {
     }));
   });
 
+  it('should show empty properties as empty string', function() {
+    assert.equal('       \n', getOutput(function() {
+      zygon([{name:'test', key:'nope', size:3}]).printRow({});
+    }));
+  });
+
   it('should render bold heading', function() {
     assert.equal(
       '\n  Test   '.bold+'\n'
@@ -104,6 +137,7 @@ describe('Table renderer', function() {
       var tbl=zygon([{name:'Test', size:5}]);
       tbl.printHead();
     }));
+
   });
 
   it('should render table with size:Infinity', function() {
@@ -123,8 +157,6 @@ describe('Table renderer', function() {
       ], {notBold:true});
     }));
   });
-
-
 
   it('should render table using format and color functions', function() {
     assert.equal(

@@ -132,7 +132,10 @@ zygon([
 ```
 
 
-## License
+## Tests
+Run tests with `npm test` or generate coverage reports with `npm run test-cov`.
 
+
+## License
 #### MIT
 
